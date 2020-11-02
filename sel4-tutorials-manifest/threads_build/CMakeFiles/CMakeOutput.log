@@ -1,0 +1,107 @@
+The target system is: Generic -  - seL4CPU
+The host system is: Linux - 5.4.0-48-generic - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/host/threads_build/CMakeFiles/3.13.4/CompilerIdC/a.out"
+
+Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+gcc (Debian 8.4.0-4) 8.4.0
+Copyright (C) 2018 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /host/threads_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/ninja" "cmTC_2b37c"
+[1/2] Building C object CMakeFiles/cmTC_2b37c.dir/testCCompiler.c.obj
+[2/2] Linking C static library libcmTC_2b37c.a
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /host/threads_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/ninja" "cmTC_8f468"
+[1/2] Building C object CMakeFiles/cmTC_8f468.dir/CMakeCCompilerABI.c.obj
+[2/2] Linking C static library libcmTC_8f468.a
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /host/threads_build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/ninja" "cmTC_8f468"]
+  ignore line: [[1/2] Building C object CMakeFiles/cmTC_8f468.dir/CMakeCCompilerABI.c.obj]
+  ignore line: [[2/2] Linking C static library libcmTC_8f468.a]
+  ignore line: []
+  implicit libs: []
+  implicit dirs: []
+  implicit fwks: []
+
+
+
+
+Detecting C [-std=c11] compiler features compiled with the following output:
+Change Dir: /host/threads_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/ninja" "cmTC_39980"
+[1/2] Building C object CMakeFiles/cmTC_39980.dir/feature_tests.c.obj
+[2/2] Linking C static library libcmTC_39980.a
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:1c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c99] compiler features compiled with the following output:
+Change Dir: /host/threads_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/ninja" "cmTC_2d8ad"
+[1/2] Building C object CMakeFiles/cmTC_2d8ad.dir/feature_tests.c.obj
+[2/2] Linking C static library libcmTC_2d8ad.a
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c90] compiler features compiled with the following output:
+Change Dir: /host/threads_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/ninja" "cmTC_f3a20"
+[1/2] Building C object CMakeFiles/cmTC_f3a20.dir/feature_tests.c.obj
+[2/2] Linking C static library libcmTC_f3a20.a
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:0c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:0c_variadic_macros
+Performing C SOURCE FILE Test compiler_arch_test succeeded with the following output:
+Change Dir: /host/threads_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/ninja" "cmTC_b99ad"
+[1/2] Building C object CMakeFiles/cmTC_b99ad.dir/src.c.obj
+[2/2] Linking C static library libcmTC_b99ad.a
+
+Source file was:
+
+#if defined(__x86_64)
+    int main() {return 0;}
+#else
+#error Invalid arch
+#endif
+    

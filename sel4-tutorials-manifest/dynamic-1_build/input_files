@@ -1,0 +1,8 @@
+/host/projects/sel4-tutorials/template.py
+/host/projects/sel4-tutorials/tools/expect.py
+/host/projects/sel4-tutorials/tools/tutorialstate.py
+/host/projects/sel4-tutorials/tools/__init__.py
+/host/projects/sel4-tutorials/tools/macros.py
+/host/projects/sel4-tutorials/tools/context.py
+/host/projects/sel4-tutorials/tutorials/dynamic-1/dynamic-1.md
+/host/projects/sel4-tutorials/tutorials/dynamic-1/CMakeLists.txt

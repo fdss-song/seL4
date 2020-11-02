@@ -1,0 +1,6 @@
+/host/threads_build/.tutegen/threads/gen/threads.md
+/host/threads_build/.tutegen/threads/gen/.tasks
+/host/threads_build/.tutegen/threads/gen/threads.c
+/host/threads_build/.tutegen/threads/gen/.manifest.obj
+/host/threads_build/.tutegen/threads/gen/.allocator.obj
+/host/threads_build/.tutegen/threads/gen/CMakeLists.txt

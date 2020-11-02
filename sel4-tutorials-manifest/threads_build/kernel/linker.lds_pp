@@ -1,0 +1,245 @@
+/*
+ * Copyright 2014, General Dynamics C4 Systems
+ *
+ * SPDX-License-Identifier: GPL-2.0-only
+ */
+/*
+ * Copyright 2014, General Dynamics C4 Systems
+ *
+ * SPDX-License-Identifier: GPL-2.0-only
+ */
+       
+/* Compile-time configuration parameters. Might be set by the build system. */
+/* size of the initial thread's root CNode (2^x slots, x >= 4) */
+/* number of timer ticks until a thread is preempted  */
+/* the number of scheduler domains */
+/* number of priorities per domain */
+/* maximum number of caps that can be created in one retype invocation */
+/* chunk size for memory clears during retype, in bits. */
+/* maximum number of iterations until we preempt a delete/revoke invocation */
+/* address range to flush per preemption work unit */
+/* maximum number of untyped caps in bootinfo */
+/* WARNING: must match value in libsel4! */
+/* CONSTRAINT: (16 * CONFIG_MAX_NUM_BOOTINFO_DEVICE_REGIONS) + (5 * CONFIG_MAX_NUM_BOOTINFO_UNTYPED_CAPS) <= 4036 */
+/* length of a timer tick in ms  */
+/* maximum number of different tracepoints which can be placed in the kernel */
+/* maximum number of IOMMU RMRR entries we can record while ACPI parsing */
+/* maximum number of IOAPIC supported */
+/* Alias CONFIG_MAX_NUM_NODES > 1 to ENABLE_SMP_SUPPORT */
+/*
+ * Copyright 2014, General Dynamics C4 Systems
+ *
+ * SPDX-License-Identifier: GPL-2.0-only
+ */
+       
+/* Each architecture defines a set of constants in #defines. These
+ * constants describe the memory regions of the kernel's portion of the
+ * address space including the physical memory window, the kernel ELF
+ * region, and the device region.
+ *
+ *  - USER_TOP: The first address after the end of user memory
+ *
+ *  - PADDR_BASE: The first physical address mapped in the kernel's
+ *    physical memory window.
+ *  - PPTR_BASE: The first virtual address of the kernel's physical
+ *    memory window.
+ *  - PPTR_TOP: The first virtual address after the end of the kernel's
+ *    physical memory window.
+ *
+ *  - KERNEL_ELF_PADDR_BASE: The first physical address used to map the
+ *    initial kernel image. The kernel ELF is mapped contiguously
+ *    starting at this address.
+ *  - KERNEL_ELF_BASE: The first virtual address used to map the initial
+ *    kernel image.
+ *
+ *  - KDEV_BASE: The first virtual address used to map devices.
+ */
+/* The offset from a physical address to a virtual address in the
+ * physical memory window. */
+/* The last address in the physical memory region mapped into the
+ * physical memory window */
+/* The kernel base offset is a way to translate the kernel image segment
+ * from virtual to physical. This translation must be a single offset
+ * for for the entire segment (i.e. the kernel image must be contiguous
+ * both virtually and physically) */
+/*
+ * Copyright 2020, Data61, CSIRO (ABN 41 687 119 230)
+ *
+ * SPDX-License-Identifier: GPL-2.0-only
+ */
+       
+/*
+ * Copyright 2020, Data61, CSIRO (ABN 41 687 119 230)
+ *
+ * SPDX-License-Identifier: GPL-2.0-only
+ */
+       
+/*
+ * Copyright 2014, General Dynamics C4 Systems
+ *
+ * SPDX-License-Identifier: GPL-2.0-only
+ */
+       
+/* time constants */
+/* Some assemblers don't recognise ul (unsigned long) suffix */
+/*
+ *          2^64 +-------------------+
+ *               | Kernel Page PDPT  | --+
+ *   2^64 - 2^39 +-------------------+ PPTR_BASE
+ *               |    TLB Bitmaps    |   |
+ *               +-------------------+   |
+ *               |                   |   |
+ *               |     Unmapped      |   |
+ *               |                   |   |
+ *   2^64 - 2^47 +-------------------+   |
+ *               |                   |   |
+ *               |   Unaddressable   |   |
+ *               |                   |   |
+ *          2^47 +-------------------+ USER_TOP
+ *               |                   |   |
+ *               |       User        |   |
+ *               |                   |   |
+ *           0x0 +-------------------+   |
+ *                                       |
+ *                         +-------------+
+ *                         |
+ *                         v
+ *          2^64 +-------------------+
+ *               |                   |
+ *               |                   |     +------+     +------+
+ *               |  Kernel Devices   | --> |  PD  | --> |  PT  |
+ *               |                   |     +------+     +------+
+ *               |                   |
+ *   2^64 - 2^30 +-------------------+ KDEV_BASE
+ *               |                   |
+ *               |                   |     +------+
+ *               |    Kernel ELF     | --> |  PD  |
+ *               |                   |     +------+
+ *               |                   |
+ *   2^64 - 2^29 +-------------------+ PPTR_TOP / KERNEL_ELF_BASE
+ *               |                   |
+ *               |  Physical Memory  |
+ *               |       Window      |
+ *               |                   |
+ *   2^64 - 2^39 +-------------------+ PPTR_BASE
+ */
+/* WARNING: some of these constants are also defined in linker.lds
+ * These constants are written out in full instead of using bit arithmetic
+ * because they need to defined like this in linker.lds
+ */
+/* Define USER_TOP to be 1 before the last address before sign extension occurs.
+ * This ensures that
+ *  1. user addresses never needed to be sign extended to be valid canonical addresses
+ *  2. the user cannot map the last page before addresses need sign extension. This prevents
+ *     the user doing a syscall as the very last instruction and the CPU calculated PC + 2
+ *     from being an invalid (non sign extended) address
+ */
+/* The first physical address to map into the kernel's physical memory
+ * window */
+/* The base address in virtual memory to use for the 1:1 physical memory
+ * mapping. Our kernel window is 2^39 bits (2^9 * 1gb) and the virtual
+ * address range is 48 bits. Therefore our base is 2^48 - 2^39 */
+/* Below the main kernel window we have any slots for the TLB bitmap */
+/* The kernel binary itself is placed in the bottom 1gb of the top
+ * 2gb of virtual address space. This is so we can use the 'kernel'
+ * memory model of GCC, which requires all symbols to be linked
+ * within the top 2GiB of memory. This is (2^48 - 2 ^ 31) */
+/* The physical memory address to use for mapping the kernel ELF */
+/* Kernel mapping starts directly after the physical memory window */
+/* Put the kernel devices at the very beginning of the top
+ * 1GB. This means they are precisely after the kernel binary
+ * region. This is 2^48 - 2^30 */
+ENTRY(_start)
+KLOAD_PADDR = 0x00100000;
+KLOAD_VADDR = (0xffffffff80000000 + 0x00100000);
+/* WARNING: constants also defined in plat/machine/hardware.h */
+OUTPUT_FORMAT(elf64-x86-64)
+KERNEL_OFFSET = KLOAD_VADDR - KLOAD_PADDR;
+SECTIONS
+{
+    /* load kernel to 1M to avoid the famous IA-32 memory holes below */
+    . = KLOAD_PADDR;
+    /* code/data only needed during bootstrapping, linked to physical addresses */
+    .phys . :
+    {
+        *(.mbh)
+        *(.phys.text)
+        *(.phys.data)
+        . = ALIGN(4K);
+    }
+    .phys.bss ADDR(.phys) + SIZEOF(.phys) (NOLOAD) :
+    {
+        boot_stack_bottom = .;
+        . = . + 2K;
+        . = ALIGN(4K);
+        boot_stack_top = .;
+        *(.phys.bss)
+    }
+    . = . + KERNEL_OFFSET;
+    .boot . : AT(ADDR(.boot) - KERNEL_OFFSET)
+    {
+        *(.boot.text)
+        *(.boot.data)
+    }
+    .boot.bss . (NOLOAD) : AT(ADDR(.boot.bss) - KERNEL_OFFSET)
+    {
+        *(.boot.bss)
+        . = ALIGN(4K);
+    }
+    /* Align up so that the SKIM portion of the kernel is by itself
+       on large pages */
+    . = ALIGN(2M);
+    ki_boot_end = .;
+    ki_skim_start = .;
+    .text . : AT(ADDR(.text) - KERNEL_OFFSET)
+    {
+        *(.text)
+    }
+    .rodata . : AT(ADDR(.rodata) - KERNEL_OFFSET)
+    {
+        *(.rodata)
+        *(.rodata.*)
+    }
+    .skim_data . : AT(ADDR(.skim_data) - KERNEL_OFFSET)
+    {
+        *(.skim.data)
+        *(.skim.data.*)
+    }
+    .skim_bss . : AT(ADDR(.skim_bss) - KERNEL_OFFSET)
+    {
+        *(.skim.bss)
+        *(.skim.bss.*)
+    }
+    /* Align up so that the SKIM portion of the kernel is by itself
+       on large pages */
+    . = ALIGN(2M);
+    ki_skim_end = .;
+    .data . : AT(ADDR(.data) - KERNEL_OFFSET)
+    {
+        *(.data)
+    }
+    .bss . : AT(ADDR(.bss) - KERNEL_OFFSET)
+    {
+        *(.bss)
+        *(COMMON)
+    }
+    .ehframe : AT(ADDR(.ehframe) - KERNEL_OFFSET)
+    {
+        _ehframe = .;
+        *(.eh_frame)
+        . = ALIGN(4K);
+    }
+    ._idle_thread . : AT(ADDR(._idle_thread) - KERNEL_OFFSET)
+    {
+ __idle_thread_start = .;
+        *(._idle_thread)
+ __idle_thread_end = .;
+    }
+    . = ALIGN(4K);
+    ki_end = .;
+    /DISCARD/ :
+    {
+        *(.note.gnu.build-id)
+        *(.comment)
+    }
+}

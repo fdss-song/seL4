@@ -1,0 +1,1 @@
+--srcdir=/host/projects/musllibc --prefix=/host/mapping_build/musllibc/build-temp/stage  --target=x86_64 --enable-warnings --disable-shared --enable-static
